@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
+using StartUp.BLL.Mapper;
 using StartUp.BLL.Middleware;
 using StartUp.BLL.Services.AppSecurity;
 using StartUp.DAL.Database;
@@ -28,7 +29,11 @@ try
     // Add services to the container.
     builder.Services.AddControllersWithViews();
 
+    #region Auto Mapper Service
 
+    builder.Services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
+
+    #endregion
 
 
     #region Connection String Decryption
