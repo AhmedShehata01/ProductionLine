@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
+using StartUp.BLL.Middleware;
 using StartUp.BLL.Services.AppSecurity;
 using StartUp.DAL.Database;
 using StartUp.DAL.Extend;
@@ -92,6 +93,19 @@ try
     #endregion
 
 
+    #region AddScoped Services
+
+    // Register SubscriptionService as Singleton
+    builder.Services.AddSingleton<Subscription>();  // Register Subscription service
+    #endregion
+
+
+    #region Bind the TimeZoneSettings to appsettings.json
+    builder.Services.Configure<TimeZoneSettings>(builder.Configuration.GetSection("TimeZoneSettings"));
+
+    #endregion
+
+
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
@@ -105,6 +119,9 @@ try
 
     app.UseHttpsRedirection();
     app.UseStaticFiles();
+
+    // Add the SubscriptionMiddleware to the pipeline
+    app.UseMiddleware<SubscriptionMiddleware>();
 
     app.UseRouting();
 

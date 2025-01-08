@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StartUp.WEP.Models;
 
@@ -28,5 +29,15 @@ namespace StartUp.WEP.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
+
+        [AllowAnonymous]
+        public IActionResult SubscriptionExpired()
+        {
+            return View();
+        }
+
     }
 }
