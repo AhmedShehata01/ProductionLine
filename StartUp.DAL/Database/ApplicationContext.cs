@@ -13,6 +13,8 @@ namespace StartUp.DAL.Database
     public class ApplicationContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<NotificationTemplate> NotificationTemplates { get; set; }
+
 
 
         public ApplicationContext(DbContextOptions<ApplicationContext> ops) : base(ops) { }
