@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
@@ -8,6 +9,7 @@ using StartUp.BLL.Middleware;
 using StartUp.BLL.Services.AppSecurity;
 using StartUp.DAL.Database;
 using StartUp.DAL.Extend;
+using StartUp.DAL.StaticData;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings()
 .GetCurrentClassLogger();
@@ -28,6 +30,7 @@ try
 
     // Add services to the container.
     builder.Services.AddControllersWithViews();
+
 
     #region Auto Mapper Service
 
@@ -56,6 +59,7 @@ try
     builder.Services.AddDbContext<ApplicationContext>(options =>
         options.UseSqlServer(cleanedConnectionString));
     #endregion
+
 
     #region Microsoft Identity Configuration
 
@@ -113,6 +117,17 @@ try
 
     var app = builder.Build();
 
+    // Ensure roles and admin user are seeded
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
+
+        await SeedData.SeedRolesAndAdminUser(services, userManager, roleManager);
+    }
+
+
     // Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment())
     {
@@ -130,7 +145,8 @@ try
 
     app.UseRouting();
 
-    app.UseAuthorization();
+    app.UseAuthentication(); // Enable Authentication
+    app.UseAuthorization();  // Enable Authorization
 
     app.MapControllerRoute(
         name: "default",
@@ -139,10 +155,13 @@ try
     app.Run();
 
 }
+catch (SqlException sqlEx)
+{
+    logger.Error($"Database connection failed: {sqlEx.Message}");
+}
 catch (Exception ex)
 {
-
-    logger.Error(ex);
+    logger.Error(ex, "An error occurred while starting the application.");
 }
 finally
 {
