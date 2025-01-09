@@ -1,0 +1,88 @@
+﻿@* Views/Shared/_UploadPartial.cshtml *@
+<div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="fileUploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fileUploadModalLabel">Upload Files</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="fileUploadForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="fileInput" class="form-label">Choose files</label>
+                        <input class="form-control" type="file" id="fileInput" name="files" multiple>
+                    </div>
+                </form>
+                <ul id="fileList" class="list-group mt-3"></ul> <!-- Display selected files -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="uploadBtn">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Store the selected files
+    let selectedFiles = [];
+
+    // Handle file selection
+    document.getElementById('fileInput').addEventListener('change', function () {
+        const files = this.files;
+        for (let i = 0; i < files.length; i++) {
+            if (!selectedFiles.some(file => file.name === files[i].name)) {
+                selectedFiles.push(files[i]);
+            }
+        }
+        updateFileList();
+    });
+
+    // Update the displayed list of files
+    function updateFileList() {
+        const fileListElement = document.getElementById('fileList');
+        fileListElement.innerHTML = ''; // Clear current list
+        selectedFiles.forEach(file => {
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item';
+            listItem.textContent = file.name;
+            fileListElement.appendChild(listItem);
+        });
+    }
+
+    // Handle file upload
+    document.getElementById('uploadBtn').addEventListener('click', function () {
+        if (selectedFiles.length > 0) {
+            const formData = new FormData();
+            selectedFiles.forEach(file => formData.append("files", file));
+
+            fetch('@Url.Action("UploadFiles", "File")', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // alert('Files uploaded successfully');
+                    console.log(data);
+
+                    // Close the modal after successful upload
+                    const modalElement = document.getElementById('fileUploadModal');
+                    const modal = new bootstrap.Modal(modalElement); // Ensure modal is properly initialized
+                    modal.hide(); // Hide the modal
+
+                    // Optionally clear the selected files list and update the UI
+                    selectedFiles = [];
+                    updateFileList();
+
+                    // Optionally reset the file input field
+                    document.getElementById('fileInput').value = '';
+                })
+                .catch(error => {
+                    console.error('Error uploading files:', error);
+                    alert('Error uploading files. Please try again.');
+                });
+        } else {
+            alert('No files selected.');
+        }
+    });
+</script>

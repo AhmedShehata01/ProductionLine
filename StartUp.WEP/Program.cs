@@ -144,6 +144,8 @@ try
     builder.Services.AddScoped<IEmailService, EmailService>();
     builder.Services.AddScoped<ISmsService, SmsService>();
 
+    builder.Services.AddScoped<IFileStorageService, FileStorageService>();
+
 
 
     // Register SubscriptionService as Singleton
