@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using StartUp.BLL.Services;
 using StartUp.DAL.Database;
 
 namespace StartUp.BLL.Repository
@@ -14,11 +15,13 @@ namespace StartUp.BLL.Repository
 
 
         private readonly ApplicationContext _context;
+        private readonly IAuditLogService _auditLogService;
         private DbSet<TEntity> dbSet;
 
-        public GenericRepository(ApplicationContext context)
+        public GenericRepository(ApplicationContext context, IAuditLogService auditLogService)
         {
             _context = context;
+            _auditLogService = auditLogService;
             dbSet = context.Set<TEntity>();
         }
 
@@ -89,14 +92,22 @@ namespace StartUp.BLL.Repository
         {
             await dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
+
+            // Log the action
+            await _auditLogService.LogAuditAsync("Insert", entity, null);
             return entity;
         }
 
         // Update an existing entity
         public async Task UpdateAsync(TEntity entity)
         {
+            var entry = _context.Entry(entity);
+            var originalValues = entry.OriginalValues.ToObject() as TEntity; // Get original values before update
             dbSet.Update(entity);
             await _context.SaveChangesAsync();
+
+            // Log the action
+            await _auditLogService.LogAuditAsync("Update", entity, originalValues);
         }
 
         // Delete an entity by ID
@@ -107,6 +118,9 @@ namespace StartUp.BLL.Repository
             {
                 dbSet.Remove(entity);
                 await _context.SaveChangesAsync();
+
+                // Log the action
+                await _auditLogService.LogAuditAsync("Delete", null, entity);
             }
         }
 
