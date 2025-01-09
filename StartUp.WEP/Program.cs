@@ -139,6 +139,7 @@ try
 
     builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
     builder.Services.AddScoped<IAuditLogService, AuditLogService>();
+
     builder.Services.AddScoped<INotificationService, NotificationService>();
     builder.Services.AddScoped<IEmailService, EmailService>();
     builder.Services.AddScoped<ISmsService, SmsService>();

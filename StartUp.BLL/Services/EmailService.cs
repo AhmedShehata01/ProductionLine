@@ -5,16 +5,26 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace StartUp.BLL.Services
 {
     public class EmailService : IEmailService
     {
-        private readonly string _smtpServer = "smtp.example.com"; // Replace with your SMTP server
-        private readonly int _smtpPort = 587; // SMTP port
-        private readonly string _smtpUsername = "your-email@example.com"; // SMTP username
-        private readonly string _smtpPassword = "your-email-password"; // SMTP password
-        private readonly string _fromAddress = "your-email@example.com"; // From address
+        private readonly string _smtpServer;
+        private readonly int _smtpPort;
+        private readonly string _smtpUsername;
+        private readonly string _smtpPassword;
+        private readonly string _fromAddress;
+
+        public EmailService(IConfiguration configuration)
+        {
+            _smtpServer = configuration["EmailSettings:SmtpServer"];
+            _smtpPort = int.Parse(configuration["EmailSettings:SmtpPort"]);
+            _smtpUsername = configuration["EmailSettings:SmtpUsername"];
+            _smtpPassword = configuration["EmailSettings:SmtpPassword"];
+            _fromAddress = configuration["EmailSettings:FromAddress"];
+        }
 
         public async Task SendEmailAsync(string to, string subject, string body)
         {
