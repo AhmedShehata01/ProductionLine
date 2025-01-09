@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -13,28 +14,35 @@ namespace StartUp.DAL.StaticData
         public static async Task SeedRolesAndAdminUser(IServiceProvider serviceProvider, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             // Seed Roles
-            string[] roles = { "Super Admin", "User" };
+            var roles = new List<string> { "Super Admin", "Admin", "User" };
 
-            foreach (var role in roles)
+            foreach (var roleName in roles)
             {
-                if (!await roleManager.RoleExistsAsync(role))
+                if (!await roleManager.RoleExistsAsync(roleName))
                 {
-                    await roleManager.CreateAsync(new ApplicationRole { Name = role });
+                    var role = new ApplicationRole
+                    {
+                        Name = roleName,
+                        NormalizedName = roleName.ToUpper(),
+                        IsActive = true,
+                        CreatedOn = DateTime.Now.ToString()
+                    };
+                    await roleManager.CreateAsync(role);
                 }
             }
 
-            // Seed SuperAdmin User
             var adminEmail = "SupAdmin@gmail.com";
-            var adminPassword = "Abc@1234"; // Ensure to use a valid hashed password or use `CreateAsync` to hash it.
-
+            var adminPassword = "Abc@1234";
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
             if (adminUser == null)
             {
                 adminUser = new ApplicationUser
                 {
                     UserName = adminEmail,
                     Email = adminEmail,
-                    NormalizedUserName = "Super Admin"
+                    NormalizedUserName = "Super Admin",
+                    EmailConfirmed = true
                 };
 
                 var result = await userManager.CreateAsync(adminUser, adminPassword);
@@ -42,6 +50,37 @@ namespace StartUp.DAL.StaticData
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(adminUser, "Super Admin");
+
+                    // Adding claims to the Super Admin user
+                    var claimsResult = await userManager.AddClaimAsync(adminUser, new Claim("View Role", "true"));
+                    if (!claimsResult.Succeeded)
+                    {
+                        throw new InvalidOperationException($"Failed to add claim 'View Role': {string.Join(", ", claimsResult.Errors.Select(e => e.Description))}");
+                    }
+
+                    // Repeat for other claims
+                    claimsResult = await userManager.AddClaimAsync(adminUser, new Claim("Create Role", "true"));
+                    if (!claimsResult.Succeeded)
+                    {
+                        throw new InvalidOperationException($"Failed to add claim 'Create Role': {string.Join(", ", claimsResult.Errors.Select(e => e.Description))}");
+                    }
+
+                    claimsResult = await userManager.AddClaimAsync(adminUser, new Claim("Edit Role", "true"));
+                    if (!claimsResult.Succeeded)
+                    {
+                        throw new InvalidOperationException($"Failed to add claim 'Edit Role': {string.Join(", ", claimsResult.Errors.Select(e => e.Description))}");
+                    }
+
+                    claimsResult = await userManager.AddClaimAsync(adminUser, new Claim("Delete Role", "true"));
+                    if (!claimsResult.Succeeded)
+                    {
+                        throw new InvalidOperationException($"Failed to add claim 'Delete Role': {string.Join(", ", claimsResult.Errors.Select(e => e.Description))}");
+                    }
+                }
+
+                else
+                {
+                    throw new InvalidOperationException("Failed to create admin user.");
                 }
             }
         }

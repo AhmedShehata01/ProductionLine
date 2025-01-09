@@ -101,6 +101,37 @@ try
 
     #endregion
 
+    #region Claim Policy 
+    builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("ViewRolePolicy",
+            policy => policy.RequireAssertion(context =>
+                context.User.HasClaim(claim => claim.Type == "View Role" && claim.Value == "true") ||
+                context.User.IsInRole("Super Admin")
+            ));
+
+        options.AddPolicy("CreateRolePolicy",
+            policy => policy.RequireAssertion(context =>
+                context.User.HasClaim(claim => claim.Type == "Create Role" && claim.Value == "true") ||
+                context.User.IsInRole("Super Admin")
+            ));
+
+        options.AddPolicy("EditRolePolicy",
+            policy => policy.RequireAssertion(context =>
+                context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true") ||
+                context.User.IsInRole("Super Admin")
+                ));
+
+        options.AddPolicy("DeleteRolePolicy",
+            policy => policy.RequireAssertion(context =>
+                context.User.HasClaim(claim => claim.Type == "Delete Role" && claim.Value == "true") ||
+                context.User.IsInRole("Super Admin")
+                ));
+    });
+
+    #endregion
+
+
 
     #region AddScoped Services
 
