@@ -6,6 +6,7 @@ using NLog;
 using NLog.Web;
 using StartUp.BLL.Mapper;
 using StartUp.BLL.Middleware;
+using StartUp.BLL.Repository;
 using StartUp.BLL.Services.AppSecurity;
 using StartUp.DAL.Database;
 using StartUp.DAL.Extend;
@@ -134,6 +135,9 @@ try
 
 
     #region AddScoped Services
+
+    builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 
     // Register SubscriptionService as Singleton
     builder.Services.AddSingleton<Subscription>();  // Register Subscription service

@@ -13,6 +13,7 @@ namespace StartUp.DAL.StaticData
     {
         public static async Task SeedRolesAndAdminUser(IServiceProvider serviceProvider, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
+            #region Seed Suber Admin User/Role/userClaim
             // Seed Roles
             var roles = new List<string> { "Super Admin", "Admin", "User" };
 
@@ -83,6 +84,9 @@ namespace StartUp.DAL.StaticData
                     throw new InvalidOperationException("Failed to create admin user.");
                 }
             }
+
+            #endregion 
+
         }
 
 
