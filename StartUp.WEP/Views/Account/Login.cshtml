@@ -1,0 +1,61 @@
+﻿@model LoginDTO
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/__Account_Layout.cshtml";
+}
+
+
+<div class="login-box">
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+
+            <form asp-controller="Account" asp-action="Login" method="post" asp-route-returnurl="@ViewBag.ReturnUrl">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" asp-for="Email" placeholder="Email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" asp-for="Password" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" asp-for="RememberMe">
+                            <label asp-for="RememberMe">
+                                Remember Me
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <input type="submit" value="Sign In" class="btn btn-primary btn-block" />
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+
+
+
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+
+
+
+

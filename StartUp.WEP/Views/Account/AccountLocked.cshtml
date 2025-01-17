@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "AccountLocked";
+    Layout = "~/Views/Shared/__Account_Layout.cshtml";
+}
+
+<div class="login-box">
+    <div class="card card-outline card-primary">
+        <div class="card-body">
+            <p class="login-box-msg text-danger">
+                Your account is looked, try again after 5 minuts
+                <br /> or
+                <br /> <a asp-action="ForgetPassword" asp-controller="Account">Reset Password</a>
+            </p>
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+

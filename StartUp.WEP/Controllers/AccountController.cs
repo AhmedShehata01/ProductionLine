@@ -37,8 +37,6 @@ namespace StartUp.WEP.Controllers
 
         #region Actions 
 
-
-
         #region Register
         [HttpGet]
         [AllowAnonymous]
@@ -464,6 +462,7 @@ namespace StartUp.WEP.Controllers
 
         #endregion
 
+
         #region Change Password
 
         public IActionResult ChangePassword()
@@ -510,7 +509,6 @@ namespace StartUp.WEP.Controllers
         }
 
         #endregion
-
 
         #endregion
 

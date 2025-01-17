@@ -1,3 +1,12 @@
 ﻿@using StartUp.WEP
 @using StartUp.WEP.Models
+@using StartUp.DAL.Extend
+@using Microsoft.Extensions.Localization
+@using StartUp.WEP.Languages
+@using StartUp.BLL.Models.AccountDTO
+
+
+
+@inject IStringLocalizer<SharedResource> SharedLocalizer
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+

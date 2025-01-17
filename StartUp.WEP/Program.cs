@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NLog;
@@ -12,6 +15,7 @@ using StartUp.BLL.Services.AppSecurity;
 using StartUp.DAL.Database;
 using StartUp.DAL.Extend;
 using StartUp.DAL.StaticData;
+using StartUp.WEP.Languages;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings()
 .GetCurrentClassLogger();
@@ -31,7 +35,25 @@ try
 
 
     // Add services to the container.
-    builder.Services.AddControllersWithViews();
+    builder.Services.AddControllersWithViews(option =>
+    {
+        var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
+        option.Filters.Add(new AuthorizeFilter(policy));
+        // Add RoleAccessAttribute globally
+        // option.Filters.Add<RoleAccessAttribute>(); // Apply RoleAccessAttribute to all controllers
+    })
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix) // Language confingration
+    .AddDataAnnotationsLocalization(options =>
+    {
+        options.DataAnnotationLocalizerProvider = (type, factory) =>
+            factory.Create(typeof(SharedResource));
+    })
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 
 
     #region Auto Mapper Service
