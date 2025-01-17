@@ -1,0 +1,66 @@
+﻿@model DeleteUserDTO
+
+@{
+    ViewData["Title"] = "DeleteUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"> Delete User </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item active">Delete User</li>
+                    <li class="breadcrumb-item"><a asp-controller="UserManagment" asp-action="index">User Managment</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="index"><i class="fas fa-home col-sm-2"></i></a></li>
+
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</div>
+
+<!-- Horizontal Form -->
+<div>
+
+    <div class="card card-secondary w-50 m-auto">
+        <div class="card-header">
+            <h3 class="card-title">Delete User</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form class="form-horizontal" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label asp-for="Id" class="col-sm-2 col-form-label">User Id </label>
+                    <input class="form-control col-sm-10" asp-for="Id" disabled>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Email" class="col-sm-2 col-form-label">User Email</label>
+                    <input class="form-control col-sm-10" asp-for="Email" disabled>
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-danger"
+                        onclick="return confirm('Are You Sure You Want To Delete User : @Model.UserName ? ')">
+                    Delete User
+                </button>
+                <a class="btn btn-primary" asp-action="EditUser" asp-route-id="@Model.Id"> Edit User </a>
+                <a class="btn btn-secondary float-right" asp-action="Index"> Back </a>
+            </div>
+            <!-- /.card-footer -->
+        </form>
+    </div>
+    <!-- /.card -->
+
+</div>
+
+

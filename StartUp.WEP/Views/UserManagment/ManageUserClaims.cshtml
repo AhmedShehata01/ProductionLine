@@ -1,0 +1,69 @@
+﻿@model UserClaimsDTO
+
+
+@{
+    ViewData["Title"] = "ManageUserClaims";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userId = ViewBag.userId;
+    var userName = ViewBag.userName;
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"> Edit User Claims </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item active">Edit User Claims </li>
+                    <li class="breadcrumb-item"><a asp-controller="UserManagment" asp-action="EditUser" asp-route-Id="@userId">Edit User </a></li>
+                    <li class="breadcrumb-item"><a asp-controller="UserManagment" asp-action="index">User Managment</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="index"><i class="fas fa-home col-sm-2"></i></a></li>
+
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</div>
+
+<!-- Horizontal Form -->
+<div>
+
+    <div class="card card-secondary w-50 m-auto">
+        <div class="card-header">
+            <h3 class="card-title">Edit : @userName.  Claims </h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form class="form-horizontal" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="card-body">
+                @for (int i = 0; i < Model.Claims.Count; i++)
+                {
+                    <div class="form-check m-1">
+                        <input type="hidden" asp-for="@Model.Claims[i].ClaimType" />
+                        <input asp-for="@Model.Claims[i].IsSelected" class="form-check-input" />
+                        <label asp-for="@Model.Claims[i].IsSelected" class="from-check-label">
+                            @Model.Claims[i].ClaimType
+                        </label>
+                    </div>
+                }
+
+
+
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary"> Update </button>
+                <a class="btn btn-secondary float-right" asp-action="EditUser" asp-route-Id="@userId"> Back </a>
+            </div>
+            <!-- /.card-footer -->
+
+        </form>
+    </div>
+    <!-- /.card -->
+
+</div>
+
