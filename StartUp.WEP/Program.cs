@@ -40,7 +40,6 @@ try
 
     #endregion
 
-
     #region Connection String Decryption
     // Retrieve the encrypted connection string from appsettings.json
     var encryptedConnectionString = builder.Configuration.GetConnectionString("ApplicationConnection");
@@ -61,7 +60,6 @@ try
     builder.Services.AddDbContext<ApplicationContext>(options =>
         options.UseSqlServer(cleanedConnectionString));
     #endregion
-
 
     #region Microsoft Identity Configuration
 
@@ -133,8 +131,6 @@ try
 
     #endregion
 
-
-
     #region AddScoped Services
 
     builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -151,7 +147,6 @@ try
     // Register SubscriptionService as Singleton
     builder.Services.AddSingleton<Subscription>();  // Register Subscription service
     #endregion
-
 
     #region Bind the TimeZoneSettings to appsettings.json
     builder.Services.Configure<TimeZoneSettings>(builder.Configuration.GetSection("TimeZoneSettings"));
@@ -191,6 +186,7 @@ try
 
     app.UseAuthentication(); // Enable Authentication
     app.UseAuthorization();  // Enable Authorization
+
 
     app.MapControllerRoute(
         name: "default",
