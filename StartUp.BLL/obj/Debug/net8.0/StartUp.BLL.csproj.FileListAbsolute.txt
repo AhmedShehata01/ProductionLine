@@ -1,0 +1,16 @@
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\bin\Debug\net8.0\StartUp.BLL.deps.json
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\bin\Debug\net8.0\StartUp.BLL.dll
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\bin\Debug\net8.0\StartUp.BLL.pdb
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\bin\Debug\net8.0\StartUp.DAL.dll
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\bin\Debug\net8.0\StartUp.DAL.pdb
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\obj\Debug\net8.0\StartUp.BLL.csproj.AssemblyReference.cache
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\obj\Debug\net8.0\StartUp.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\obj\Debug\net8.0\StartUp.BLL.AssemblyInfoInputs.cache
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\obj\Debug\net8.0\StartUp.BLL.AssemblyInfo.cs
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\obj\Debug\net8.0\StartUp.BLL.csproj.CoreCompileInputs.cache
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\obj\Debug\net8.0\StartUp.BLL.sourcelink.json
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\obj\Debug\net8.0\StartUp..FB7E159F.Up2Date
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\obj\Debug\net8.0\StartUp.BLL.dll
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\obj\Debug\net8.0\refint\StartUp.BLL.dll
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\obj\Debug\net8.0\StartUp.BLL.pdb
+C:\Users\ASP\source\repos\StartUp\StartUp.BLL\obj\Debug\net8.0\ref\StartUp.BLL.dll

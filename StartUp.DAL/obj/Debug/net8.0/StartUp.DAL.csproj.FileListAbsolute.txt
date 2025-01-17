@@ -1,0 +1,15 @@
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\bin\Debug\net8.0\StartUp.DAL.deps.json
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\bin\Debug\net8.0\StartUp.DAL.runtimeconfig.json
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\bin\Debug\net8.0\StartUp.DAL.dll
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\bin\Debug\net8.0\StartUp.DAL.pdb
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\obj\Debug\net8.0\StartUp.DAL.csproj.AssemblyReference.cache
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\obj\Debug\net8.0\StartUp.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\obj\Debug\net8.0\StartUp.DAL.AssemblyInfoInputs.cache
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\obj\Debug\net8.0\StartUp.DAL.AssemblyInfo.cs
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\obj\Debug\net8.0\StartUp.DAL.csproj.CoreCompileInputs.cache
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\obj\Debug\net8.0\StartUp.DAL.sourcelink.json
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\obj\Debug\net8.0\StartUp.DAL.dll
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\obj\Debug\net8.0\refint\StartUp.DAL.dll
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\obj\Debug\net8.0\StartUp.DAL.pdb
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\obj\Debug\net8.0\StartUp.DAL.genruntimeconfig.cache
+C:\Users\ASP\source\repos\StartUp\StartUp.DAL\obj\Debug\net8.0\ref\StartUp.DAL.dll
