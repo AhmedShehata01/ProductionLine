@@ -17,7 +17,7 @@ namespace StartUp.BLL.Models.AccountDTO
         [Remote(action: "IsEmailInUse", controller: "Account")]
         [Required(ErrorMessage = "Email required.")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        [ValidEmailDomain(allowedDomain: "Dotsegypt.com", ErrorMessage = "Email Domain must be gmail.com")]
+        //[ValidEmailDomain(allowedDomain: "Dotsegypt.com", ErrorMessage = "Email Domain must be gmail.com")]
         public string Email { get; set; }
 
 
